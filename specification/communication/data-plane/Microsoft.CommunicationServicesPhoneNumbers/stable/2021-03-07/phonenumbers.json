@@ -400,6 +400,9 @@
         ],
         "summary": "Releases a purchased phone number.",
         "operationId": "PhoneNumbers_ReleasePhoneNumber",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "in": "path",
@@ -415,6 +418,9 @@
         "responses": {
           "202": {
             "description": "The service has accepted the request and will start processing later. It will return 'Accepted' immediately and include an 'Operation-Location' and 'Location' headers. Client side should further query the operation status using the URL specified in 'Operation-Location' header. When operation completes successfully query final result using URL specified in 'Location' header.",
+            "schema": {
+              "$ref": "#/definitions/PhoneNumberReleaseResponse"
+            },
             "headers": {
               "Operation-Location": {
                 "description": "URL to query for status of the operation.",
@@ -442,10 +448,7 @@
           "Release phone number": {
             "$ref": "./examples/ReleasePhoneNumber.json"
           }
-        },
-        "produces": [
-          "application/json"
-        ]
+        }
       }
     },
     "/phoneNumbers": {
@@ -852,6 +855,28 @@
         },
         "cost": {
           "$ref": "#/definitions/PhoneNumberCost"
+        }
+      }
+    },
+    "PhoneNumberReleaseResponse": {
+      "required": [
+        "status"
+      ],
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "Status of operation.",
+          "enum": [
+            "notStarted",
+            "running",
+            "succeeded",
+            "failed"
+          ],
+          "type": "string",
+          "x-ms-enum": {
+            "name": "PhoneNumberOperationStatus",
+            "modelAsString": true
+          }
         }
       }
     },
