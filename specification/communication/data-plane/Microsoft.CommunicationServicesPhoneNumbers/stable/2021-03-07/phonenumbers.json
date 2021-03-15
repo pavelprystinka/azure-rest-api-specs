@@ -136,6 +136,9 @@
         "consumes": [
           "application/json"
         ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -153,6 +156,9 @@
         "responses": {
           "202": {
             "description": "The service has accepted the request and will start processing later. It will return 'Accepted' immediately and include an 'Operation-Location' and 'Location' headers. Client side should further query the operation status using the URL specified in 'Operation-Location' header. When operation completes successfully query final result using URL specified in 'Location' header.",
+            "schema": {
+              "$ref": "#/definitions/PhoneNumberOperation"
+            },
             "headers": {
               "Operation-Location": {
                 "description": "URL to query for status of the operation.",
@@ -180,10 +186,7 @@
           "Purchase phone numbers": {
             "$ref": "./examples/PurchasePhoneNumbers.json"
           }
-        },
-        "produces": [
-          "application/json"
-        ]
+        }
       }
     },
     "/phoneNumbers/operations/{operationId}": {
